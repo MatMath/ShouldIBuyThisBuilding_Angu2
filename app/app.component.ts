@@ -3,6 +3,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 
 import { ControlsComponent } from './buildingInfo/controls.component'
 import { AboutComponent } from './about/about.component'
+import { DataService } from './data.services';
 
 @Component({
   selector: 'my-app',
@@ -15,9 +16,7 @@ import { AboutComponent } from './about/about.component'
     <router-outlet></router-outlet>
   `,
   directives: [ROUTER_DIRECTIVES],
-  providers: [
-    ROUTER_PROVIDERS
-  ],
+  providers: [ROUTER_PROVIDERS, DataService],
   styleUrls: ['app/app.component.css']
 })
 
