@@ -1,8 +1,25 @@
-<h3>Add all Info in here!!!</h3>
+<h3>Validate and Fill the info bellow</h3>
+<div class="row">
+	<div class="col-sm-2" [ngClass]="getDownloadClass(BuildingLists_updated)">
+		<span class="glyphicon glyphicon-ok" *ngIf=BuildingLists_updated></span>
+		Building List
+	</div>
+	<div class="col-sm-2" [ngClass]="getDownloadClass(Neiborhoodlists_updated)">
+		<span class="glyphicon glyphicon-ok" *ngIf=Neiborhoodlists_updated></span>
+		Neiborhood List
+	</div>
+	<div class="col-sm-2" [ngClass]="getDownloadClass(InterestRates_updated)">
+		<span class="glyphicon glyphicon-ok" *ngIf=InterestRates_updated></span>
+		Interest Rates List
+	</div>
+</div>
 <div class="grid grid-pad">
-  <div *ngFor="let Building of BuildingLists" class="col-1-4">
-    <div class="module Building">
+  <div *ngFor="let Building of BuildingLists">
+    <div>
       <h4>{{Building.Title}}</h4>
     </div>
   </div>
+  <!-- <pre>{{BuildingLists | json}}</pre>
+  <pre>{{Neiborhoodlists | json}}</pre>
+  <pre>{{InterestRates | json}}</pre> -->
 </div>

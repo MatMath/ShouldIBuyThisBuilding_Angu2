@@ -8,12 +8,14 @@ import { DataService } from './data.services';
 @Component({
   selector: 'my-app',
   template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a [routerLink]="['Controls']">Controls</a>
-      <a [routerLink]="['About']">About</a>
-    </nav>
-    <router-outlet></router-outlet>
+    <div class="container">
+      <h1>{{title}}</h1>
+      <nav>
+        <a [routerLink]="['Controls']">Controls</a>
+        <a [routerLink]="['About']">About</a>
+      </nav>
+      <router-outlet></router-outlet>
+    </div>
   `,
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS, DataService],
@@ -35,5 +37,5 @@ import { DataService } from './data.services';
 ])
 
 export class AppComponent {
-	title = 'Should you buy it?';
+	title = 'Should you buy or Invest?';
 }
