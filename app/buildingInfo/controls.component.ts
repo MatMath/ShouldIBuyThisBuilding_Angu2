@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 
-import { BuildingList, Neiborhoodlist, InterestRate} from '../fallbackData/data-structure';
+import { BuildingList, Neiborhoodlist, InterestRate, DefaultValue} from '../fallbackData/data-structure';
 import { DataService } from '../data.services';
 
 @Component({
@@ -13,16 +13,18 @@ export class ControlsComponent implements OnInit {
 	BuildingLists: BuildingList[];
 	Neiborhoodlists: Neiborhoodlist[];
 	InterestRates: InterestRate[];
+	defaultValue: DefaultValue;
 
 	// Later this will be a indicator if we have the default/fallback or the HTTP request data.
 	BuildingLists_updated: boolean = false;
 	Neiborhoodlists_updated: boolean = false;
 	InterestRates_updated: boolean = false;
 
-	constructor(
-	  private dataService: DataService) { }
 
-	getDownloadClass(typeOfData) {
+	constructor(
+	  private dataService: DataService) {}
+
+	getDownloadClass(typeOfData: boolean): Object {
 		if(typeOfData) {
 			return {'bg-success':true};
 		} else {
@@ -37,6 +39,7 @@ export class ControlsComponent implements OnInit {
 	  	this.BuildingLists_updated = true;
 	  	});
 	}
+	
 	getNeiborhoodData() {
 	  this.dataService.getNeiborhood()
 	  .then(Neiborhoodlists => {
@@ -44,6 +47,7 @@ export class ControlsComponent implements OnInit {
 	  	this.Neiborhoodlists_updated = true;
 	  });
 	}
+	
 	getInterestData() {
 	  this.dataService.getInterest()
 	  .then(InterestRates => {
@@ -52,10 +56,18 @@ export class ControlsComponent implements OnInit {
 	  });
 	}
 
+	getDefaultValue() {
+	  this.dataService.getDefaultValue()
+	  .then(defaultValue => {
+	  	this.defaultValue = defaultValue;
+	  });
+	}
+
 	ngOnInit() {
 	    this.getBuildingData();
 	    this.getNeiborhoodData();
 	    this.getInterestData();
+	    this.getDefaultValue();
   }
 
 }

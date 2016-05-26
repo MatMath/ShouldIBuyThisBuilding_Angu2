@@ -19,3 +19,19 @@ export class InterestRate {
 	name: string;
 	latestIntRate: number;
 }
+
+export class DefaultValue {
+  houseValue: number;
+  houseYearlyPriceIncrease: number;
+  longTermInvestmentReturnRate: number;
+  rentIncreaseRate: number;
+  downPayment: number;
+  intRate: number;
+  fixExpenses: number;
+  oneTimeExpenses: number;
+  nbrAppartment: number;
+  averageRent: number;
+  neiborhoodName: string;
+  neiborhoodCode: string;
+  nbrYears: number;
+}

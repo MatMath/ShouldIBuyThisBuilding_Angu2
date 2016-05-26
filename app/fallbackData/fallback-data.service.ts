@@ -1,4 +1,4 @@
-import { BuildingList, Neiborhoodlist, InterestRate} from './data-structure';
+import { BuildingList, Neiborhoodlist, InterestRate, DefaultValue} from './data-structure';
 
 export var FallBackBuildingType: BuildingList[] = [
   {Title:'House',Appartment:1,RevenuPerApp:0},
@@ -19,3 +19,20 @@ export var FallbBackInterest: InterestRate[] = [
   {'DB':'30US','name':'30-Year Fixed Rate Mortgage Average in the United States','latestIntRate':3.57},
   {'DB':'WRMORTG','name':'30-Year Conventional Mortgage Rate','latestIntRate':3.61}
 ];
+
+// Later this DefaultValue could come from a Database where you can save different scenario.
+export var startDefaultValue: DefaultValue = {
+      houseValue: 500000,
+      houseYearlyPriceIncrease: 3,
+      longTermInvestmentReturnRate: 7,
+      rentIncreaseRate: 1.5,
+      downPayment: 10,
+      intRate: 3,
+      fixExpenses: 1.75,
+      oneTimeExpenses: 1.25,
+      nbrAppartment: 1,
+      averageRent:1900,
+      neiborhoodName: '',
+      neiborhoodCode: '',
+      nbrYears: 25
+};
