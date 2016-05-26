@@ -22,20 +22,18 @@
     <div class='col-sm-2'> Neiborhood: </div>
     <div class='col-sm-6'>
       <!-- <SelectNeiborhood class='form-control'neiborhoodlist={neiborhoodlist} neiborhoodSelected={this.neiborhoodSelected}/> -->
+      <select #hoodSelector class="form-control form-group" (ngModel)="defaultValue.neiborhoodCode">
+        <option *ngFor="let hood of Neiborhoodlists" [value]="hood.Code">{{hood.Region}} {{hood.Code}}</option>
+      </select>
       </div>
-    <div class='col-sm-4'>neiborhoodName with # neiborhoodCode </div>
+    <div class='col-sm-4'>{{hoodSelector.value}} neiborhoodName with # {{defaultValue.neiborhoodCode}} {{hoodOption}}</div>
   </div>
 
   <div class='row'>
     <div class='col-sm-2'>
-    <!-- <ButtonToolbar>
-        <DropdownButton key="building" onSelect={this.customClickOnBootstrapButtons} title="Type of Building" id="dropdown-building">
-          {buildingTypeList.map((building, i) => {
-              const { Title, Appartment} = building
-              return (<MenuItem eventKey={i} value={Appartment}>{Title}</MenuItem>)
-          })}
-        </DropdownButton>
-      </ButtonToolbar> -->
+      <select class="form-control form-group" [(ngModel)]="defaultValue.nbrAppartment">
+        <option *ngFor="let building of BuildingLists" [value]="building.Appartment">{{building.Title}} - {{building.Appartment}}</option>
+      </select>
     </div>
     <div class='col-sm-6'>
       <div class="form-group">
@@ -92,7 +90,7 @@
         </div>
     </div>
   </div>
-  <div class='col-sm-3 text-center'>{houseValue) </div>
+  <div class='col-sm-3 text-center'>{{defaultValue.houseValue | currency:'USD':true}} </div>
   <div class='col-sm-4'>
     <div class="form-group">
         <div class="input-group">
@@ -115,7 +113,7 @@
         </div>
     </div>
   </div>
-  <div class='col-sm-3 text-center'>{houseValue*downPayment} $ </div>
+  <div class='col-sm-3 text-center'>{{defaultValue.houseValue * defaultValue.downPayment / 100 | currency:'USD':true}} </div>
   <div class='col-sm-4'>
     <div class="form-group">
         <div class="input-group">
@@ -129,14 +127,9 @@
 
   <div class='row'>
   <div class='col-sm-2'>
-    <!-- <ButtonToolbar>
-      <DropdownButton onSelect={this.dropddownButtonSelectIntRate} title="Interest Rate" id="dropdown-IntRate">
-        {interestRate.map((intRate, i) => {
-            const { name, latestIntRate} = intRate
-            return (<MenuItem eventKey={i} value={latestIntRate}>{name} - {latestIntRate}</MenuItem>)
-        })}
-      </DropdownButton>
-    </ButtonToolbar> -->
+    <select placeholder="Interest Rate" class="form-control form-group" [(ngModel)]="defaultValue.intRate">
+      <option *ngFor="let rate of InterestRates" [value]="rate.latestIntRate">{{rate.name}} - {{rate.latestIntRate}}</option>
+    </select>
   </div>
   <div class='col-sm-6'>
     <div class="form-group">
@@ -175,7 +168,7 @@
       </div>
     </div>
   </div>
-  <div class='col-sm-3'>{{defaultValue.fixExpenses}} % or {{defaultValue.houseValue*defaultValue.fixExpenses/100 | currency:'USD':true}}$/year</div>
+  <div class='col-sm-3'>{{defaultValue.fixExpenses}} % or {{defaultValue.houseValue*defaultValue.fixExpenses/100 | currency:'USD':true}}/year</div>
   <div class='col-sm-4'></div>
   </div>
 
