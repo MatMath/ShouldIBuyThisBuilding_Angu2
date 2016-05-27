@@ -1,5 +1,5 @@
-<h3>Validate and Fill the info bellow</h3>
-<div class="row">
+<div class="text-center"><h3>Validate and Fill the info</h3></div>
+<div class="row text-center">
 	<div class="col-sm-2" [ngClass]="getDownloadClass(BuildingLists_updated)">
 		<span class="glyphicon glyphicon-ok" *ngIf=BuildingLists_updated></span>
 		Building List
@@ -16,17 +16,14 @@
   <!-- <pre>{{BuildingLists | json}}</pre>
   <pre>{{Neiborhoodlists | json}}</pre>
   <pre>{{InterestRates | json}}</pre> -->
-  <pre>{{defaultValue | json}}</pre>
+  <!-- <pre>{{defaultValue | json}}</pre> -->
 <div *ngIf="defaultValue">
   <div class='row'>
     <div class='col-sm-2'> Neiborhood: </div>
     <div class='col-sm-6'>
-      <!-- <SelectNeiborhood class='form-control'neiborhoodlist={neiborhoodlist} neiborhoodSelected={this.neiborhoodSelected}/> -->
-      <select #hoodSelector class="form-control form-group" (ngModel)="defaultValue.neiborhoodCode">
-        <option *ngFor="let hood of Neiborhoodlists" [value]="hood.Code">{{hood.Region}} {{hood.Code}}</option>
-      </select>
-      </div>
-    <div class='col-sm-4'>{{hoodSelector.value}} neiborhoodName with # {{defaultValue.neiborhoodCode}} {{hoodOption}}</div>
+      <my-autocomplete style="width:100%" #hoodSelector [neiborhoodlist]="Neiborhoodlists" [(selectedNeiborhood)]="defaultValue.selectedNeiborhood"></my-autocomplete>
+    </div>
+    <div class='col-sm-4'>Location: {{defaultValue.selectedNeiborhood.Region}}</div>
   </div>
 
   <div class='row'>

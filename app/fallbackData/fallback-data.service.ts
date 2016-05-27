@@ -32,7 +32,9 @@ export var startDefaultValue: DefaultValue = {
       oneTimeExpenses: 1.25,
       nbrAppartment: 1,
       averageRent:1900,
-      neiborhoodName: '',
-      neiborhoodCode: '',
+      selectedNeiborhood: {
+        Region:'Paradise',
+        Code: '12345'
+      },
       nbrYears: 25
 };

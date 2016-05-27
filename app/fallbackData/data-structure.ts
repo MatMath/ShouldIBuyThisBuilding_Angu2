@@ -14,6 +14,11 @@ export class Neiborhoodlist {
 	Code: string;
 }
 
+export class NeiborhoodAutocomplete {
+	Region: string;
+	Code: string;
+}
+
 export class InterestRate {
 	DB: string;
 	name: string;
@@ -31,7 +36,6 @@ export class DefaultValue {
   oneTimeExpenses: number;
   nbrAppartment: number;
   averageRent: number;
-  neiborhoodName: string;
-  neiborhoodCode: string;
+  selectedNeiborhood: NeiborhoodAutocomplete;
   nbrYears: number;
 }

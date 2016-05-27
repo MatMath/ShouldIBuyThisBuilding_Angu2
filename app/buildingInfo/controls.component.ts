@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 
-import { BuildingList, Neiborhoodlist, InterestRate, DefaultValue} from '../fallbackData/data-structure';
+import { BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue} from '../fallbackData/data-structure';
 import { DataService } from '../data.services';
+import { autocompleteComponent } from '../shared/autocomplete.component'
 
 @Component({
   selector: 'my-controls',
   templateUrl: `app/buildingInfo/controls.component.html`,
-  directives: [NgClass, NgIf]
+  directives: [NgClass, NgIf, autocompleteComponent]
 })
 export class ControlsComponent implements OnInit {
 	BuildingLists: BuildingList[];
-	Neiborhoodlists: Neiborhoodlist[];
+	Neiborhoodlists: NeiborhoodAutocomplete[];
 	InterestRates: InterestRate[];
 	defaultValue: DefaultValue;
 
@@ -43,7 +44,14 @@ export class ControlsComponent implements OnInit {
 	getNeiborhoodData() {
 	  this.dataService.getNeiborhood()
 	  .then(Neiborhoodlists => {
-	  	this.Neiborhoodlists = Neiborhoodlists;
+	  	this.Neiborhoodlists = Neiborhoodlists.map((value, i) => {
+                    let concat: string;
+                    concat = value.City + ', ' + value.Region;
+                    return ({
+                    		Region: concat,
+                    		Code: value.Code
+                    	});
+                });
 	  	this.Neiborhoodlists_updated = true;
 	  });
 	}

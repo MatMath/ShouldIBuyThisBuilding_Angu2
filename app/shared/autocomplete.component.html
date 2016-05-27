@@ -1,0 +1,7 @@
+<div class="form-group input-group">
+  <div class="input-group-addon">Region:</div>
+  <input class="form-control" type="text" [(ngModel)]="query" (keyup)="filter()">
+</div>
+<div *ngIf="filteredList.length > 0" class="list-group">
+    <a *ngFor="let item of filteredList" class="list-group-item" (click)="select(item)">{{item.Region}}</a>
+</div>
