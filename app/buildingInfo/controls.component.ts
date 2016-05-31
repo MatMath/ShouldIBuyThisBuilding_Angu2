@@ -8,6 +8,7 @@ import { autocompleteComponent } from '../shared/autocomplete.component'
 @Component({
   selector: 'my-controls',
   templateUrl: `app/buildingInfo/controls.component.html`,
+  styleUrls: ['app/buildingInfo/controls.component.css'],
   directives: [NgClass, NgIf, autocompleteComponent]
 })
 export class ControlsComponent implements OnInit {
@@ -21,6 +22,13 @@ export class ControlsComponent implements OnInit {
 	Neiborhoodlists_updated: boolean = false;
 	InterestRates_updated: boolean = false;
 
+	tooltipHint = {
+		houseToolTip: "Expected % of price increase of the house per year",
+		investmentToolTip: "Expected annual return on long term investment",
+		rentIncreaseToolTip: "Expected annual increase of the rent",
+		youLiveSomewhere: "If you dont live there you will pay rent somewhere else at the same time",
+		whereDoesItComeFrom: "Data come from Quandl website. US only"
+	}
 
 	constructor(
 	  private dataService: DataService) {}
@@ -76,6 +84,10 @@ export class ControlsComponent implements OnInit {
 	    this.getNeiborhoodData();
 	    this.getInterestData();
 	    this.getDefaultValue();
+  }
+
+  onSubmit() { 
+  	console.log("Starting calculation");
   }
 
 }

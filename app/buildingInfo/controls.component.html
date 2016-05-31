@@ -17,184 +17,179 @@
   <pre>{{Neiborhoodlists | json}}</pre>
   <pre>{{InterestRates | json}}</pre> -->
   <!-- <pre>{{defaultValue | json}}</pre> -->
-<div *ngIf="defaultValue">
-  <div class='row'>
-    <div class='col-sm-2'> Neiborhood: </div>
-    <div class='col-sm-6'>
-      <my-autocomplete style="width:100%" #hoodSelector [neiborhoodlist]="Neiborhoodlists" [(selectedNeiborhood)]="defaultValue.selectedNeiborhood"></my-autocomplete>
-    </div>
-    <div class='col-sm-4'>Location: {{defaultValue.selectedNeiborhood.Region}}</div>
-  </div>
+  <div>
+    <form *ngIf="defaultValue" (ngSubmit)="onSubmit()" #mortgageForm="ngForm">
 
-  <div class='row'>
-    <div class='col-sm-2'>
-      <select class="form-control form-group" [(ngModel)]="defaultValue.nbrAppartment">
-        <option *ngFor="let building of BuildingLists" [value]="building.Appartment">{{building.Title}} - {{building.Appartment}}</option>
-      </select>
-    </div>
-    <div class='col-sm-6'>
-      <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-addon"># Rented</div>
-            <input type="number" class="form-control"
+      <div class='row'>
+        <div class='col-sm-2'> Neiborhood: </div>
+        <div class='col-sm-6'>
+          <my-autocomplete style="width:100%" #hoodSelector [neiborhoodlist]="Neiborhoodlists" [(selectedNeiborhood)]="defaultValue.selectedNeiborhood"></my-autocomplete>
+        </div>
+        <div class='col-sm-4'>Location: {{defaultValue.selectedNeiborhood.Region}}</div>
+      </div>
+
+      <div class='row'>
+        <div class='col-sm-2'>
+          <select class="form-control form-group" [(ngModel)]="defaultValue.nbrAppartment">
+            <option *ngFor="let building of BuildingLists" [value]="building.Appartment">{{building.Title}} - {{building.Appartment}}</option>
+          </select>
+        </div>
+        <div class='col-sm-6'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"># Rented</div>
+              <input type="number" class="form-control" required min=0
               [(ngModel)]="defaultValue.nbrAppartment">
+            </div>
           </div>
+        </div>
+        <div data-toggle="tooltip" data-placement="top" title="{{tooltipHint.youLiveSomewhere}}" class='col-sm-4'>
+          <span>Include your appartment that you will live in as rented.</span>
+        </div>
       </div>
-    </div>
-    <div class='col-sm-4'>
-      <!-- <OverlayTrigger placement="top" overlay={youLiveSomewhere}>
-      </OverlayTrigger> -->
-        <span>Include your appartment that you will live in as rented.</span>
-    </div>
-  </div>
 
-  <div class='row'>
-  <div class='col-sm-2'>
-    <!-- <OverlayTrigger placement="top" overlay={whereDoesItComeFrom}>
-    </OverlayTrigger> -->
-    <Button>Estimate Rent</Button>
-  </div>
-  <div class='col-sm-6'>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-addon">$</div>
-        <input type="number" class="form-control"
-          [(ngModel)]="defaultValue.averageRent">
-      </div>
-    </div>
-  </div>
-  <div class='col-sm-4'>
-     <!-- <OverlayTrigger placement="top" overlay={rentIncreaseToolTip}> -->
-      <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-addon">% Rent increase</div>
-            <input type="number" class="form-control"
+      <div class='row'>
+        <div class='col-sm-2' data-toggle="tooltip" data-placement="top" title="{{tooltipHint.whereDoesItComeFrom}}">
+          <Button>Estimate Rent</Button>
+        </div>
+        <div class='col-sm-6'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="number" class="form-control" required min=0
+              [(ngModel)]="defaultValue.averageRent">
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-4' data-toggle="tooltip" data-placement="top" title="{{tooltipHint.rentIncreaseToolTip}}">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">% Rent increase</div>
+              <input type="number" class="form-control" step=0.01 required min=0
               [(ngModel)]="defaultValue.rentIncreaseRate"
               >
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-  </div>
 
-  <div class='row'>
-  <div class='col-sm-2'>House Value: </div>
-  <div class='col-sm-3'>
-    <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">$</div>
-          <input type="number" class="form-control"
-            [(ngModel)]="defaultValue.houseValue">
+      <div class='row'>
+        <div class='col-sm-2'>House Value: </div>
+        <div class='col-sm-3'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">$</div>
+              <input type="number" class="form-control" required min=0
+              [(ngModel)]="defaultValue.houseValue" #houseValue="ngForm">
+            </div>
+          </div>
         </div>
-    </div>
-  </div>
-  <div class='col-sm-3 text-center'>{{defaultValue.houseValue | currency:'USD':true}} </div>
-  <div class='col-sm-4'>
-    <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">% Increase yearly</div>
-          <input type="number" class="form-control"
-            [(ngModel)]="defaultValue.houseYearlyPriceIncrease" >
+        <div class='col-sm-3 text-center'>{{defaultValue.houseValue | currency:'USD':true}} </div>
+        <div class='col-sm-4'>
+          <div class="form-group" data-toggle="tooltip" data-placement="top" title="{{tooltipHint.houseToolTip}}">
+            <div class="input-group">
+              <div class="input-group-addon">% Increase yearly</div>
+              <input type="number" class="form-control" step=0.01 required min=0
+              [(ngModel)]="defaultValue.houseYearlyPriceIncrease" >
+            </div>
+          </div>
         </div>
-    </div>
-  </div>
-  </div>
-
-  <div class='row'>
-  <div class='col-sm-2'>Down Payment: </div>
-  <div class='col-sm-3'>
-    <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">%</div>
-          <input type="number" class="form-control"
-            [(ngModel)]="defaultValue.downPayment">
-        </div>
-    </div>
-  </div>
-  <div class='col-sm-3 text-center'>{{defaultValue.houseValue * defaultValue.downPayment / 100 | currency:'USD':true}} </div>
-  <div class='col-sm-4'>
-    <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">% Long investment</div>
-          <input type="number" class="form-control"
-            [(ngModel)]="defaultValue.longTermInvestmentReturnRate">
-        </div>
-    </div>
-  </div>
-  </div>
-
-  <div class='row'>
-  <div class='col-sm-2'>
-    <select placeholder="Interest Rate" class="form-control form-group" [(ngModel)]="defaultValue.intRate">
-      <option *ngFor="let rate of InterestRates" [value]="rate.latestIntRate">{{rate.name}} - {{rate.latestIntRate}}</option>
-    </select>
-  </div>
-  <div class='col-sm-6'>
-    <div class="form-group">
-        <div class="input-group">
-          <div class="input-group-addon">%</div>
-          <input type="number" class="form-control"
-            [(ngModel)]="defaultValue.intRate">
-        </div>
-    </div>
-  </div>
-  <div class='col-sm-4'></div>
-  </div>
-
-  <div class='row'>
-  <div class='col-sm-2'>Period</div>
-  <div class='col-sm-6'>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-addon">Years:</div>
-        <input type="number" class="form-control"
-          [(ngModel)]="defaultValue.nbrYears">
       </div>
-    </div>
-  </div>
-  <div class='col-sm-4'></div>
-  </div>
 
-  <div class='row'>
-  <div class='col-sm-2'>Fix expenses (taxes, repair, fee):</div>
-  <div class='col-sm-3'>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-addon">%</div>
-        <input type="number" class="form-control"
-          [(ngModel)]="defaultValue.fixExpenses">
+      <div class='row'>
+        <div class='col-sm-2'>Down Payment: </div>
+        <div class='col-sm-3'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">%</div>
+              <input type="number" class="form-control" step=0.01 required min=0
+              [(ngModel)]="defaultValue.downPayment">
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-3 text-center'>{{defaultValue.houseValue * defaultValue.downPayment / 100 | currency:'USD':true}} </div>
+        <div class='col-sm-4'>
+          <div class="form-group" data-toggle="tooltip" data-placement="top" title="{{tooltipHint.investmentToolTip}}">
+            <div class="input-group">
+              <div class="input-group-addon">% Long investment</div>
+              <input type="number" class="form-control" step=0.01 required min=0
+              [(ngModel)]="defaultValue.longTermInvestmentReturnRate">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class='col-sm-3'>{{defaultValue.fixExpenses}} % or {{defaultValue.houseValue*defaultValue.fixExpenses/100 | currency:'USD':true}}/year</div>
-  <div class='col-sm-4'></div>
-  </div>
 
-  <div class='row'>
-  <div class='col-sm-2'>Welcome taxes & moving in</div>
-  <div class='col-sm-3'>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-addon">%</div>
-        <input type="number" class="form-control"
-          [(ngModel)]="defaultValue.oneTimeExpenses">
+      <div class='row'>
+        <div class='col-sm-2'>
+          <select placeholder="Interest Rate" class="form-control form-group" [(ngModel)]="defaultValue.intRate">
+            <option *ngFor="let rate of InterestRates" [value]="rate.latestIntRate">{{rate.name}} - {{rate.latestIntRate}}</option>
+          </select>
+        </div>
+        <div class='col-sm-6'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">%</div>
+              <input type="number" class="form-control" required step=0.01 min=0
+              [(ngModel)]="defaultValue.intRate">
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-4'></div>
       </div>
-    </div>
-  </div>
-  <div class='col-sm-3'>{{defaultValue.oneTimeExpenses | number:'.2-2'}} % or {{defaultValue.houseValue*defaultValue.oneTimeExpenses/100 | currency:'USD':true}}</div>
-  <div class='col-sm-4'></div>
-  </div>
 
-  <div class='row'>
-  <div class='col-sm-2'></div>
-  <div class='col-sm-10'></div>
-  </div>
+      <div class='row'>
+        <div class='col-sm-2'>Period</div>
+        <div class='col-sm-6'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">Years:</div>
+              <input type="number" class="form-control" required min=0
+              [(ngModel)]="defaultValue.nbrYears">
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-4'></div>
+      </div>
 
-  <div class='row text-center'>
-    <div class='col-sm-12'>
-      <button
-        class='btn btn-lg btn-success'>
-        Calculate
-      </button>
-    </div>
-  </div>
+      <div class='row'>
+        <div class='col-sm-2'>Fix expenses (taxes, repair, fee):</div>
+        <div class='col-sm-3'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">%</div>
+              <input type="number" class="form-control" required step=0.01 min=0
+              [(ngModel)]="defaultValue.fixExpenses">
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-3'>{{defaultValue.fixExpenses}} % or {{defaultValue.houseValue*defaultValue.fixExpenses/100 | currency:'USD':true}}/year</div>
+        <div class='col-sm-4'></div>
+      </div>
+
+      <div class='row'>
+        <div class='col-sm-2'>Welcome taxes & moving in</div>
+        <div class='col-sm-3'>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">%</div>
+              <input type="number" class="form-control" required step=0.01 min=0
+              [(ngModel)]="defaultValue.oneTimeExpenses">
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-3'>{{defaultValue.oneTimeExpenses | number:'.2-2'}} % or {{defaultValue.houseValue*defaultValue.oneTimeExpenses/100 | currency:'USD':true}}</div>
+        <div class='col-sm-4'></div>
+      </div>
+
+      <div class='row'>
+        <div class='col-sm-2'></div>
+        <div class='col-sm-10'></div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-12'>
+          <button type="submit" class="btn btn-lg btn-info" [disabled]="!mortgageForm.form.valid">Calculate</button>
+        </div>
+      </div>
+  </form>
 </div>
