@@ -192,6 +192,9 @@
         </div>
       </div>
   </form>
+  <div *ngIf="calcParam">
+    <generic-results [calcParam]="calcParam"></generic-results>
+  </div>
   <div *ngIf="mortgateTable">
     <table-result [mortgateTable]="mortgateTable"></table-result>
   </div>

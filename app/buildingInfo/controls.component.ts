@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 
-import { MortgateTable, BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue, CalcParam} from '../fallbackData/data-structure';
+import { MortgateTable, BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue, CalcParam } from '../fallbackData/data-structure';
 import { DataService } from '../data.services';
 import { autocompleteComponent } from '../shared/autocomplete.component';
 import { MathProcessor } from './controls.services';
 import { TableResultComponent } from './tableResult.component'
-
+import { GenericResults } from './genericResults.component'
 
 @Component({
   selector: 'my-controls',
   templateUrl: `app/buildingInfo/controls.component.html`,
   styleUrls: ['app/buildingInfo/controls.component.css'],
-  directives: [NgClass, NgIf, autocompleteComponent, TableResultComponent]
+  directives: [NgClass, NgIf, autocompleteComponent, TableResultComponent, GenericResults]
 })
 export class ControlsComponent implements OnInit {
 	BuildingLists: BuildingList[];

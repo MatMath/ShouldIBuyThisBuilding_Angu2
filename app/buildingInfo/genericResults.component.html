@@ -1,0 +1,42 @@
+<div>
+  <div class='row text-right'>
+    <div class='col-sm-2'>Mortgage total</div>
+    <div class='col-sm-2 bg-info'>${{calcParam.mortgage | number:'.0-0'}}</div>
+    <div class='col-sm-2'>Down Payment after expenses</div>
+    <div class='col-sm-2 bg-info'>${{calcParam.downPayment | number:'.0-0'}}</div>
+    <div class='col-sm-2'>PMT</div>
+    <div class='col-sm-2 bg-info'>${{calcParam.pmt | number:'.0-0'}}</div>
+  </div>
+  <div class='row text-right'>
+  	<div class='col-sm-2'>Current Value opportunity: </div>
+  	<div class='col-sm-2 bg-info'>${{calcParam.currentValue | number:'.0-0'}}</div>
+  	<div class='col-sm-2'>vs initial down payment: </div>
+  	<div class='col-sm-2 bg-info'>${{calcParam.initialLoanMoney | number:'.0-0'}}</div>
+  </div>
+
+  <div class='row'>
+  	<div class='col-sm-2'><strong>What it mean:</strong></div>
+  	<div class='col-sm-10'>
+  		If we invest in that building with the current assomption, the current value of that investment is {{calcParam.currentValue | number:'.0-0'}}
+  		<br/>If we compare that to simply investing the in initial load of {{calcParam.initialLoanMoney | number:'.0-0'}} in the market at a the same long therm rate.
+  		<br/>
+  		<span *ngIf="calcParam.currentValue>calcParam.initialLoanMoney" class='bg-success'><strong>Building:</strong> That mean buying the building is {{calcParam.currentValue-calcParam.initialLoanMoney | number:'.0-0'}}$ <strong>more valuable</strong></span>
+  		<span *ngIf="calcParam.currentValue<calcParam.initialLoanMoney" class='bg-danger'><strong>Long term loan: </strong>That mean buying the building is <strong>less profitable</strong> of {{calcParam.initialLoanMoney-calcParam.currentValue | number:'.0-0'}}$ than direct portfolio investment.</span>
+  	</div>
+  </div>
+
+	<br/>
+  <div class='row'>
+  	<div class='col-sm-3'><strong>Note, this do not consider:</strong></div>
+  	<div class='col-sm-9'>
+  		<ul>
+  			<li>Cost of selling the building</li>
+  			<li>Deduction/imposition of the loss/gain from rent</li>
+  			<li>Capital Gain on sellign the portfolio</li>
+  			<li>Type of portfolio used (ex: tax deductable)</li>
+  			<li>Jump in the stock/housing market</li>
+  			<li>Your taxable bracket</li>
+  		</ul>
+  	</div>
+  </div>
+</div>
