@@ -39,3 +39,14 @@ export class DefaultValue {
   selectedNeiborhood: NeiborhoodAutocomplete;
   nbrYears: number;
 }
+
+export class MortgateTable {
+	period: number;
+	houseValue: number;
+	mortgateValue : number;
+	pmt: number;
+	interest: number;
+	rentIncome: number;
+	fixExpenses: number;
+	totalPmt: number;
+}

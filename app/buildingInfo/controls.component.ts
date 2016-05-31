@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 
-import { BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue} from '../fallbackData/data-structure';
+import { MortgateTable, BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue} from '../fallbackData/data-structure';
 import { DataService } from '../data.services';
-import { autocompleteComponent } from '../shared/autocomplete.component'
+import { autocompleteComponent } from '../shared/autocomplete.component';
+import { MathProcessor } from './controls.services';
+
 
 @Component({
   selector: 'my-controls',
@@ -16,6 +18,7 @@ export class ControlsComponent implements OnInit {
 	Neiborhoodlists: NeiborhoodAutocomplete[];
 	InterestRates: InterestRate[];
 	defaultValue: DefaultValue;
+	mortgateTable: MortgateTable[]
 
 	// Later this will be a indicator if we have the default/fallback or the HTTP request data.
 	BuildingLists_updated: boolean = false;
@@ -31,7 +34,8 @@ export class ControlsComponent implements OnInit {
 	}
 
 	constructor(
-	  private dataService: DataService) {}
+		private mathProcessor: MathProcessor,
+	  	private dataService: DataService) {}
 
 	getDownloadClass(typeOfData: boolean): Object {
 		if(typeOfData) {
@@ -88,6 +92,29 @@ export class ControlsComponent implements OnInit {
 
   onSubmit() { 
   	console.log("Starting calculation");
+  	let nbrPmtPerYear = 12;
+  	let principal = this.defaultValue.houseValue * (1- (this.defaultValue.downPayment/100 - this.defaultValue.oneTimeExpenses/100));
+  	let monthIntRate = this.defaultValue.intRate / nbrPmtPerYear / 100;
+  	let fixExpRatio = this.defaultValue.fixExpenses / nbrPmtPerYear / 100;
+  	let nbrPer = this.defaultValue.nbrYears * nbrPmtPerYear;
+  	let pmt = this.mathProcessor.calculateThePV(principal, monthIntRate, nbrPer);
+  	let rentIncome = this.defaultValue.nbrAppartment * this.defaultValue.averageRent;
+  	let {houseValue, houseYearlyPriceIncrease, longTermInvestmentReturnRate, rentIncreaseRate} = this.defaultValue;
+
+  	this.mortgateTable = [{
+  	  period: 0,
+  	  houseValue: houseValue,
+  	  mortgateValue : principal,
+  	  pmt: pmt,
+  	  interest: 0,
+  	  rentIncome: rentIncome,
+  	  fixExpenses: 0,
+  	  totalPmt: 0
+  	}];
+  	
+  	this.mortgateTable = this.mathProcessor.buildMortgageTable(this.mortgateTable, fixExpRatio, monthIntRate, pmt, houseYearlyPriceIncrease, rentIncreaseRate);
+  	this.mortgateTable.shift(); //Removign the initial element since they will be display as a summary somewhere else.
+  	console.table(this.mortgateTable);
   }
 
 }

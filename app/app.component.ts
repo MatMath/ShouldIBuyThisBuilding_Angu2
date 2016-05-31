@@ -4,6 +4,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/route
 import { ControlsComponent } from './buildingInfo/controls.component'
 import { AboutComponent } from './about/about.component'
 import { DataService } from './data.services';
+import { MathProcessor } from './buildingInfo/controls.services';
 
 @Component({
   selector: 'my-app',
@@ -18,7 +19,7 @@ import { DataService } from './data.services';
     </div>
   `,
   directives: [ROUTER_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS, DataService],
+  providers: [ROUTER_PROVIDERS, DataService, MathProcessor],
   styleUrls: ['app/app.component.css']
 })
 
