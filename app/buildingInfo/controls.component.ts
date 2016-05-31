@@ -5,13 +5,14 @@ import { MortgateTable, BuildingList, NeiborhoodAutocomplete, InterestRate, Defa
 import { DataService } from '../data.services';
 import { autocompleteComponent } from '../shared/autocomplete.component';
 import { MathProcessor } from './controls.services';
+import { TableResultComponent } from './tableResult.component'
 
 
 @Component({
   selector: 'my-controls',
   templateUrl: `app/buildingInfo/controls.component.html`,
   styleUrls: ['app/buildingInfo/controls.component.css'],
-  directives: [NgClass, NgIf, autocompleteComponent]
+  directives: [NgClass, NgIf, autocompleteComponent, TableResultComponent]
 })
 export class ControlsComponent implements OnInit {
 	BuildingLists: BuildingList[];
@@ -114,7 +115,7 @@ export class ControlsComponent implements OnInit {
   	
   	this.mortgateTable = this.mathProcessor.buildMortgageTable(this.mortgateTable, fixExpRatio, monthIntRate, pmt, houseYearlyPriceIncrease, rentIncreaseRate);
   	this.mortgateTable.shift(); //Removign the initial element since they will be display as a summary somewhere else.
-  	console.table(this.mortgateTable);
+  	// console.table(this.mortgateTable);
   }
 
 }

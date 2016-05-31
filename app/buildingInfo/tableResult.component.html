@@ -1,0 +1,24 @@
+<div>
+	<table>
+		<body>
+			<tr>
+				<th>Period</th>
+				<th>House Value</th>
+				<th>PMT</th>
+				<th>Interest</th>
+				<th>Rent income</th>
+				<th>Fix Expenses</th>
+				<th>Total Pmt</th>
+			</tr>
+			<tr *ngFor="let row of mortgateTable">
+				<td>{{row.period}}</td>
+				<td>{{row.houseValue | number:'.0-0'}}</td>
+				<td>{{row.pmt | number:'.0-0'}}</td>
+				<td>{{row.interest | number:'.0-0'}}</td>
+				<td>{{row.rentIncome | number:'.0-0'}}</td>
+				<td>{{row.fixExpenses | number:'.0-0'}}</td>
+				<td>{{row.totalPmt | number:'.0-0'}}</td>
+			</tr>
+		</body>
+	</table>
+</div>
