@@ -13,14 +13,11 @@ export class TableResultComponent {
  constructor(){}
 
  @Input() mortgateTable: MortgateTable[];
- console.log(mortgateTable);
  
  listStart: number = 0;
  listEnd: number = 5;
 
  scrollUpOrDownTheList (currentIndexLocation:number) {
- 	console.log(currentIndexLocation, this.listStart, this.listEnd);
- 	// let currentIndexLocation = currentIndexLocation -1;
  	if(currentIndexLocation <= 1 || currentIndexLocation > this.mortgateTable.length) {
  		// At the outside boundry so do nothing
  		return;
@@ -35,6 +32,12 @@ export class TableResultComponent {
 		this.listEnd ++;
 		this.listStart ++;
 	}
+ }
+
+ setClassIfInitOrLast(indexAt:number, max:number) {
+ 	if(indexAt <= 1 || indexAt === max) {
+	 	return {'bg-info':true};
+ 	}
  }
 
 }

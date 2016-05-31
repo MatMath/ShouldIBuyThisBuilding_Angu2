@@ -17,7 +17,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let row of mortgateTable | slice:listStart:listEnd" (mouseover)="scrollUpOrDownTheList(row.period)">
+			<tr *ngFor="let row of mortgateTable | slice:listStart:listEnd" (mouseover)="scrollUpOrDownTheList(row.period)" [ngClass]="setClassIfInitOrLast(row.period, mortgateTable.length)">
 				<td>{{row.period}}</td>
 				<td>{{row.houseValue | number:'.0-0'}}</td>
 				<td>{{row.mortgateValue | number:'.0-0'}}</td>
