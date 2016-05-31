@@ -50,3 +50,11 @@ export class MortgateTable {
 	fixExpenses: number;
 	totalPmt: number;
 }
+
+export class CalcParam {
+	mortgage: number;
+	downPayment: number;
+	pmt: number;
+	initialLoanMoney: number;
+	currentValue: number;
+}

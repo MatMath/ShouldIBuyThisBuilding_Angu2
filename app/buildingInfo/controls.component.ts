@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 
-import { MortgateTable, BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue} from '../fallbackData/data-structure';
+import { MortgateTable, BuildingList, NeiborhoodAutocomplete, InterestRate, DefaultValue, CalcParam} from '../fallbackData/data-structure';
 import { DataService } from '../data.services';
 import { autocompleteComponent } from '../shared/autocomplete.component';
 import { MathProcessor } from './controls.services';
@@ -19,7 +19,9 @@ export class ControlsComponent implements OnInit {
 	Neiborhoodlists: NeiborhoodAutocomplete[];
 	InterestRates: InterestRate[];
 	defaultValue: DefaultValue;
-	mortgateTable: MortgateTable[]
+	mortgateTable: MortgateTable[];
+	calcParam: CalcParam;
+
 
 	// Later this will be a indicator if we have the default/fallback or the HTTP request data.
 	BuildingLists_updated: boolean = false;
@@ -115,7 +117,16 @@ export class ControlsComponent implements OnInit {
   	
   	this.mortgateTable = this.mathProcessor.buildMortgageTable(this.mortgateTable, fixExpRatio, monthIntRate, pmt, houseYearlyPriceIncrease, rentIncreaseRate);
   	this.mortgateTable.shift(); //Removign the initial element since they will be display as a summary somewhere else.
-  	// console.table(this.mortgateTable);
+
+  	// calculating the current value of the investment
+  	this.calcParam = {
+        mortgage: principal,
+        downPayment: this.defaultValue.houseValue*(this.defaultValue.downPayment - this.defaultValue.oneTimeExpenses)/100,
+        pmt: pmt,
+        initialLoanMoney: this.defaultValue.houseValue*this.defaultValue.downPayment/100,
+        currentValue: this.mathProcessor.getInvestmentReturnValue(this.mortgateTable, 1+longTermInvestmentReturnRate/100/nbrPmtPerYear)
+      }
+  	// console.log(this.calcParam);
   }
 
 }

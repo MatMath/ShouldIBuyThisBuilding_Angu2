@@ -18,6 +18,7 @@ export class TableResultComponent {
  listEnd: number = 5;
 
  scrollUpOrDownTheList (currentIndexLocation:number) {
+ 	// I could trottle it so it look less glitchy, but I like when it goes fast. :)
  	if(currentIndexLocation <= 1 || currentIndexLocation > this.mortgateTable.length) {
  		// At the outside boundry so do nothing
  		return;

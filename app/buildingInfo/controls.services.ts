@@ -34,9 +34,30 @@ export class MathProcessor {
     } else {
       return tablePmt;
     }
-  };
+  }
 
   calculateThePV (principal: number, monthIntRate: number, nbrPer: number) {
     return (principal*monthIntRate)/(1-1/Math.pow((1+monthIntRate),nbrPer));
-  };
+  }
+
+  getInvestmentReturnValue(arrayToReduce: MortgateTable[], reducingFactor: number) {
+    // How it work: We take everything we pay over time and make it as today value.
+    // We take how much we can sell the building at the end and transpose it as today value.
+    // The reducingFactor need to match the current period.
+    interface ValueToReduce {
+      totalPmt:number,
+      period: number
+    }
+
+    let totalPaidInCurrentValue:number = arrayToReduce.reduce((previousValue:number, currentValue:MortgateTable):number => {
+      
+      let oldValue:number = previousValue;
+      let newValue:number = currentValue.totalPmt * Math.pow((1/reducingFactor),currentValue.period);
+      return oldValue+newValue;
+    }, 0);
+
+    let lastItem = arrayToReduce.pop();
+    let totalReceiveInTheFuture = lastItem.houseValue * Math.pow((1/reducingFactor),lastItem.period);
+    return totalReceiveInTheFuture - totalPaidInCurrentValue;
+  }
 }
