@@ -14,5 +14,27 @@ export class TableResultComponent {
 
  @Input() mortgateTable: MortgateTable[];
  console.log(mortgateTable);
+ 
+ listStart: number = 0;
+ listEnd: number = 5;
+
+ scrollUpOrDownTheList (currentIndexLocation:number) {
+ 	console.log(currentIndexLocation, this.listStart, this.listEnd);
+ 	// let currentIndexLocation = currentIndexLocation -1;
+ 	if(currentIndexLocation <= 1 || currentIndexLocation > this.mortgateTable.length) {
+ 		// At the outside boundry so do nothing
+ 		return;
+ 	}
+
+	if(currentIndexLocation === this.listStart + 1){
+		// I am overing on top of the Top row, so I want to go up.
+		this.listEnd --;
+		this.listStart --;
+	} else if(currentIndexLocation === this.listEnd) {
+		// I am at the end row so scroll down.
+		this.listEnd ++;
+		this.listStart ++;
+	}
+ }
 
 }

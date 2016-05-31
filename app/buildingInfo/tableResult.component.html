@@ -1,24 +1,33 @@
 <div>
-	<table>
-		<body>
+	<div>
+		Start: <input [(ngModel)]="listStart" type="number" step=1 min=0 max="{{listEnd - 1}}"> 
+		End: <input [(ngModel)]="listEnd" type="number" step=1 min="{{listStart + 1}}" max="{{mortgateTable.length}}">
+	</div>
+	<table class="table table-bordered table-hover table-condensed">
+		<thead>
 			<tr>
 				<th>Period</th>
 				<th>House Value</th>
+				<th>Mortgate Value</th>
 				<th>PMT</th>
 				<th>Interest</th>
 				<th>Rent income</th>
 				<th>Fix Expenses</th>
 				<th>Total Pmt</th>
 			</tr>
-			<tr *ngFor="let row of mortgateTable">
+		</thead>
+		<tbody>
+			<tr *ngFor="let row of mortgateTable | slice:listStart:listEnd" (mouseover)="scrollUpOrDownTheList(row.period)">
 				<td>{{row.period}}</td>
 				<td>{{row.houseValue | number:'.0-0'}}</td>
+				<td>{{row.mortgateValue | number:'.0-0'}}</td>
 				<td>{{row.pmt | number:'.0-0'}}</td>
 				<td>{{row.interest | number:'.0-0'}}</td>
 				<td>{{row.rentIncome | number:'.0-0'}}</td>
 				<td>{{row.fixExpenses | number:'.0-0'}}</td>
 				<td>{{row.totalPmt | number:'.0-0'}}</td>
 			</tr>
-		</body>
+		</tbody>
 	</table>
 </div>
+
